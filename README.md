@@ -9,9 +9,6 @@ Video Prompt Maker converts video-prompt requests into a consistent Seedance 2.0
 ## Core behavior
 
 - Writes prompt bodies in English while preserving exact Korean dialogue and on-screen text.
-- Enforces a hard maximum of 3,800 Unicode characters and 3,800 UTF-16 code units.
-- Includes the exact directive `[Sound] no music` once in every video prompt.
-- Removes music-generation instructions and asks for a non-musical replacement when music is indispensable to the requested concept.
 - Uses the order: Subject + Motion → Environment → Camera → Style → Sound → Constraints.
 - Supports text-to-video, image-to-video, reference-to-video, multi-shot, and storyboard-to-video requests.
 - Uses one camera movement per shot and observable acting direction.
@@ -43,11 +40,7 @@ Exit codes:
 - `1`: prompt-policy violation
 - `2`: file or decoding error
 
-The validator checks length, the exact sound directive, code-fence leakage, and high-confidence music-generation language.
-
-## Important limitation
-
-The 3,800-character limit and exact sound directive are Contentrium house rules, not official Seedance syntax. Prompt wording alone cannot guarantee that a stochastic video model will never generate music. For a hard audio guarantee, disable generated audio entirely when the platform supports it and add only approved dialogue or effects in post-production.
+The validator checks the skill's core output contract and code-fence leakage.
 
 ## Skill package
 
