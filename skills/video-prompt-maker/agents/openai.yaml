@@ -1,0 +1,7 @@
+interface:
+  display_name: "Video Prompt Maker"
+  short_description: "Seedance 2.0-style prompts for any video model"
+  default_prompt: "Use $video-prompt-maker to turn this scene into a Seedance 2.0-style video prompt."
+
+policy:
+  allow_implicit_invocation: true
