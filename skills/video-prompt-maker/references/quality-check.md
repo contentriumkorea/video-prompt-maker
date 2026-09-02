@@ -15,7 +15,7 @@
 11. **Dialogue/text:** Preserve supplied Korean dialogue and screen text exactly in quotation marks, and ensure it can fit the duration.
 12. **Music:** Apply the contextual policy below and keep exact `[Sound] no music` once after the Style clause.
 13. **Constraints:** Keep continuity locks after the Sound line.
-14. **Length:** Validate the body at or below 3,800 Unicode characters and 3,800 UTF-16 code units.
+14. **Length:** Resolve the target model and validate the body at or below its limit by both Unicode characters and UTF-16 code units. Use Seedance 2.0 when no model is named or the named model is unlisted.
 
 ## Music-term policy
 
@@ -31,16 +31,18 @@ Preserve, in order, the core action, exact supplied dialogue or screen text, exp
 
 ## Validator
 
-Save only the prompt body, without the surrounding code fence, as a UTF-8 text file. Run:
+Save only the prompt body, without the surrounding code fence, as a UTF-8 text file. Run with the canonical target model:
 
 ```powershell
-python scripts/validate_prompt.py prompt.txt
+python scripts/validate_prompt.py --model "Kling 3.0" prompt.txt
 ```
 
-Exit status `0` and output `ok=true ... violations=none` mean the deterministic contract passes. Exit status `1` identifies one or more prompt violations: `empty`, `unicode-length`, `utf16-length`, `sound-directive-count`, `music-language`, or `code-fence`. Exit status `2` means the input could not be read or decoded. Revise the prompt body and rerun until status `0`. Validate every variant separately because length and language differ per body.
+Use `Seedance 2.0` (3,800), `Seedance 2.5` (14,000), `MiniMax H3` (6,500), or `Kling 3.0` (8,000). Omit `--model` only when no target model is named; an omitted or unlisted model uses Seedance 2.0. Repeat `--model` for one shared prompt targeting multiple models; the validator applies the smallest applicable limit. Validate separate variants with their own model argument.
+
+Exit status `0` and output `ok=true ... violations=none model=<resolved-model> max_chars=<limit>` mean the deterministic contract passes. Exit status `1` identifies one or more prompt violations: `empty`, `unicode-length`, `utf16-length`, `sound-directive-count`, `music-language`, or `code-fence`. Exit status `2` means the input could not be read or decoded. Revise the prompt body and rerun until status `0`.
 
 The validator uses only high-confidence contextual patterns. It cannot recognize every euphemism, visual performance, Korean phrasing, or indirect musical concept. Semantic music review is mandatory even after exit status `0`; never describe the validator as a guarantee that a stochastic model will emit no music.
 
 ## Boundary and guarantees
 
-The 3,800 limits and exact `[Sound] no music` string are user-approved house rules, not official Seedance syntax. Official model documentation may describe supported inputs or limits, but it does not turn this cross-model house style into a native format. A prompt-only prohibition removes requests for generated music; it cannot guarantee that a stochastic video system will never output music, nor can any prompt guarantee exact acting, motion, identity, physics, or continuity.
+The model-specific limits and exact `[Sound] no music` string are user-approved house rules, not official model syntax. Official model documentation may describe supported inputs or limits, but it does not turn this cross-model house style into a native format. A prompt-only prohibition removes requests for generated music; it cannot guarantee that a stochastic video system will never output music, nor can any prompt guarantee exact acting, motion, identity, physics, or continuity.

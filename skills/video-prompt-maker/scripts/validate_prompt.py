@@ -3,11 +3,32 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 
 
-MAX_CHARS = 3800
+DEFAULT_MODEL = "Seedance 2.0"
+MODEL_LIMITS = {
+    "Seedance 2.0": 3800,
+    "Seedance 2.5": 14000,
+    "MiniMax H3": 6500,
+    "Kling 3.0": 8000,
+}
+MODEL_SLUGS = {
+    "Seedance 2.0": "seedance-2.0",
+    "Seedance 2.5": "seedance-2.5",
+    "MiniMax H3": "minimax-h3",
+    "Kling 3.0": "kling-3.0",
+}
+MODEL_ALIASES = {
+    "Seedance 2.0": ("Seedance 2.0", "시댄스 2.0"),
+    "Seedance 2.5": ("Seedance 2.5", "시댄스 2.5"),
+    "MiniMax H3": ("MiniMax H3", "미니맥스 H3"),
+    "Kling 3.0": ("Kling 3.0", "Kling 3", "클링 3.0", "클링 3"),
+}
+# Backward-compatible alias for callers that imported the original default cap.
+MAX_CHARS = MODEL_LIMITS[DEFAULT_MODEL]
 DIRECTIVE = "[Sound] no music"
 
 MUSIC_PATTERNS = tuple(
@@ -37,11 +58,70 @@ MUSIC_PATTERNS = tuple(
 
 
 @dataclass(frozen=True)
+class ModelPolicy:
+    model: str
+    max_chars: int
+    slug: str
+
+
+@dataclass(frozen=True)
 class ValidationResult:
     ok: bool
     unicode_chars: int
     utf16_units: int
     violations: tuple[str, ...]
+    model: str = DEFAULT_MODEL
+    max_chars: int = MAX_CHARS
+
+
+def normalize_model_name(value: str) -> str:
+    return re.sub(r"[^0-9a-z가-힣]+", "", value.casefold())
+
+
+ALIAS_TO_MODEL = {
+    normalize_model_name(alias): model
+    for model, aliases in MODEL_ALIASES.items()
+    for alias in aliases
+}
+
+
+def split_model_names(value: str) -> list[str]:
+    return [
+        part.strip()
+        for part in re.split(
+            r"\s*(?:,|/|\||\+|&|\band\b|및|와|과)\s*",
+            value,
+            flags=re.IGNORECASE,
+        )
+        if part.strip()
+    ]
+
+
+def resolve_model_policy(model: str | Iterable[str] | None = None) -> ModelPolicy:
+    if model is None:
+        requested: list[str] = []
+    elif isinstance(model, str):
+        requested = split_model_names(model)
+    else:
+        requested = [
+            part
+            for value in model
+            for part in split_model_names(str(value))
+        ]
+
+    if not requested:
+        requested = [DEFAULT_MODEL]
+
+    resolved = [
+        ALIAS_TO_MODEL.get(normalize_model_name(value), DEFAULT_MODEL)
+        for value in requested
+    ]
+    selected = min(resolved, key=lambda name: MODEL_LIMITS[name])
+    return ModelPolicy(
+        model=selected,
+        max_chars=MODEL_LIMITS[selected],
+        slug=MODEL_SLUGS[selected],
+    )
 
 
 def utf16_length(value: str) -> int:
@@ -53,15 +133,19 @@ def music_language_present(prompt: str) -> bool:
     return any(pattern.search(masked) for pattern in MUSIC_PATTERNS)
 
 
-def validate_prompt(prompt: str) -> ValidationResult:
+def validate_prompt(
+    prompt: str,
+    model: str | Iterable[str] | None = None,
+) -> ValidationResult:
+    policy = resolve_model_policy(model)
     violations: list[str] = []
     unicode_chars = len(prompt)
     utf16_units = utf16_length(prompt)
     if not prompt:
         violations.append("empty")
-    if unicode_chars > MAX_CHARS:
+    if unicode_chars > policy.max_chars:
         violations.append("unicode-length")
-    if utf16_units > MAX_CHARS:
+    if utf16_units > policy.max_chars:
         violations.append("utf16-length")
     if prompt.count(DIRECTIVE) != 1:
         violations.append("sound-directive-count")
@@ -74,6 +158,8 @@ def validate_prompt(prompt: str) -> ValidationResult:
         unicode_chars=unicode_chars,
         utf16_units=utf16_units,
         violations=tuple(violations),
+        model=policy.model,
+        max_chars=policy.max_chars,
     )
 
 
@@ -87,18 +173,29 @@ def read_prompt(path: Path | None) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("path", nargs="?", type=Path)
+    parser.add_argument(
+        "--model",
+        action="append",
+        help=(
+            "Target model. Repeat for a shared prompt; the smallest applicable "
+            "limit is used. Defaults to Seedance 2.0."
+        ),
+    )
     args = parser.parse_args(argv)
     try:
         prompt = read_prompt(args.path)
     except (OSError, UnicodeError) as error:
         print(f"error: cannot read prompt: {error}", file=sys.stderr)
         return 2
-    result = validate_prompt(prompt)
+    policy = resolve_model_policy(args.model)
+    result = validate_prompt(prompt, model=args.model)
     print(
         f"ok={str(result.ok).lower()} "
         f"unicode_chars={result.unicode_chars} "
         f"utf16_units={result.utf16_units} "
-        f"violations={','.join(result.violations) or 'none'}"
+        f"violations={','.join(result.violations) or 'none'} "
+        f"model={policy.slug} "
+        f"max_chars={result.max_chars}"
     )
     return 0 if result.ok else 1
 

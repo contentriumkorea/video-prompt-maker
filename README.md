@@ -4,7 +4,7 @@
 
 콘텐츠리움이 제작한 영상 생성 프롬프트용 Codex 스킬입니다.
 
-Video Prompt Maker converts video-prompt requests into a consistent Seedance 2.0 house style, even when the request names another model such as Veo, Kling, Sora, Runway, or another video generator.
+Video Prompt Maker turns video-prompt requests into structured prompts organized for video generation across Seedance, Veo, Kling, Sora, Runway, and other video models.
 
 ## Core behavior
 

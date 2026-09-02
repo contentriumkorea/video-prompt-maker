@@ -2,7 +2,7 @@
 
 ## Authority boundary
 
-Use official documentation for the named model only to understand supported inputs, asset roles, and product limitations. Do not present undocumented behavior as supported or guaranteed. Treat the Seedance 2.0 natural-language structure as this skill's cross-model house style, not as an official format for every model. Treat the 3,800-character ceiling and exact `[Sound] no music` directive as user-defined house rules, not official Seedance syntax.
+Use official documentation for the named model only to understand supported inputs, asset roles, and product limitations. Do not present undocumented behavior as supported or guaranteed. Treat the Seedance 2.0 natural-language structure as this skill's cross-model house style, not as an official format for every model. Treat the model-specific character ceilings and exact `[Sound] no music` directive as user-defined house rules, not official model syntax.
 
 ## Semantic order
 
