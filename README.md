@@ -73,7 +73,7 @@ It interactively lets you choose clients. Review those choices yourself; this RE
 
 ## Use the release package in web tools
 
-The [latest release](https://github.com/contentriumkorea/video-prompt-maker/releases/latest) includes a release ZIP, a `.skill` archive, and `Video Prompt Maker Web Instructions.md` (the downloadable file may have a timestamp prefix).
+The [latest release](https://github.com/contentriumkorea/video-prompt-maker/releases/latest) includes a release ZIP, a `.skill` archive, and a **Web Instructions** Markdown file. Download names include a timestamp; GitHub may replace spaces and punctuation with dots.
 
 For Gemini web/Gems and other tools without native Agent Skill installation, use that instruction file:
 
@@ -115,6 +115,8 @@ Build release artifacts:
 ```powershell
 python tools/build_release.py --output-dir dist
 ```
+
+The builder keeps local download names intact. When publishing on GitHub, use the final uploaded asset names in the published `SHA256SUMS.txt`; GitHub normalizes spaces and punctuation. Keep the hashes unchanged and verify the uploaded bytes before publishing the release.
 
 Run the test suite:
 
