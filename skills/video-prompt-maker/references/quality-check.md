@@ -31,11 +31,13 @@ Preserve, in order, the core action, exact supplied dialogue or screen text, exp
 
 ## Validator
 
-Save only the prompt body, without the surrounding code fence, as a UTF-8 text file. Run with the canonical target model:
+Save only the prompt body, without the surrounding code fence, as a UTF-8 text file. Locate the validator relative to the loaded `SKILL.md`, not the current project. Run with the canonical target model using absolute paths (replace the example paths with the actual locations):
 
-```powershell
-python scripts/validate_prompt.py --model "Kling 3.0" prompt.txt
+```sh
+python "/absolute/path/video-prompt-maker/scripts/validate_prompt.py" --model "Kling 3.0" "/absolute/path/prompt.txt"
 ```
+
+Use Python 3.10 or later; no extra packages are needed. The same quoted-path command works in a shell or PowerShell; select the available Python launcher. For a web-only host without code execution, follow the unverified-draft procedure in `SKILL.md`; self-review is not an executed validator pass.
 
 Use `Seedance 2.0` (3,800), `Seedance 2.5` (14,000), `MiniMax H3` (6,500), or `Kling 3.0` (8,000). Omit `--model` only when no target model is named; an omitted or unlisted model uses Seedance 2.0. Repeat `--model` for one shared prompt targeting multiple models; the validator applies the smallest applicable limit. Validate separate variants with their own model argument.
 

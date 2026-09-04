@@ -1,9 +1,21 @@
 ---
 name: video-prompt-maker
-description: Use when a user asks to create, rewrite, translate, optimize, review, or troubleshoot a video-generation prompt for T2V, I2V, reference-to-video, multi-shot, storyboard-to-video, Seedance, Higgsfield, Veo, Kling, Sora, Runway, or another video model; also use for I2V requests with a prompt deliverable that makes an image move. Do not use for a standalone still-image prompt, video editing without a prompt deliverable, actual video generation, or an informational model-spec question.
+description: Use when creating, rewriting, reviewing, or troubleshooting video-generation prompts for T2V, I2V, references, multi-shot, or storyboards in any model. Not for generating videos or still images.
 ---
 
 # Video Prompt Maker
+
+## When to use
+
+Use when a user asks to create, rewrite, translate, optimize, review, or troubleshoot a video-generation prompt for T2V, I2V, reference-to-video, multi-shot, storyboard-to-video, Seedance, Higgsfield, Veo, Kling, Sora, Runway, or another video model; also use for I2V requests with a prompt deliverable that makes an image move. Do not use for a standalone still-image prompt, video editing without a prompt deliverable, actual video generation, or an informational model-spec question.
+
+## Host and file access
+
+This is a portable Agent Skill. It does not require Codex, a plugin, an MCP server, or a video-generation API. `agents/openai.yaml` is optional Codex UI metadata, not a runtime dependency.
+
+Resolve `references/` and `scripts/` relative to the directory containing this loaded `SKILL.md`, not the user's project or current working directory. Read the routed references from that location. Run the validator with Python 3.10 or later (standard library only), quoting its absolute path and the UTF-8 prompt file's absolute path; `python3` or `py -3` may be the available Python command. Follow the host's execution permissions.
+
+In an instructions-only web environment, the complete web export supplies the same files as labelled sections. Use those sections instead of filesystem paths. If a required section cannot be read, request the complete export rather than inventing its contents. If code execution is unavailable, retain every prompt rule and perform the semantic review, but label any delivered prompt an **unverified draft** outside its code block and state that deterministic validation is still required. Never claim an executed check, exact measured count, or validation pass without running it. A code-enabled host can run the bundled validator source in its sandbox.
 
 ## Non-negotiable output contract
 
