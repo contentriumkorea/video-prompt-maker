@@ -35,6 +35,7 @@ In an instructions-only web environment, the complete web export supplies the sa
 | Seedance 2.5 | 14,000 |
 | MiniMax H3 | 6,500 |
 | Kling 3.0 | 8,000 |
+| Kling 4.0 | 14,000 |
 
 - When no target model is named, use the Seedance 2.0 limit.
 - Treat an unlisted target model as Seedance 2.0 for length validation.

@@ -17,6 +17,7 @@ MODEL_LIMITS = {
     "Seedance 2.5": 14000,
     "MiniMax H3": 6500,
     "Kling 3.0": 8000,
+    "Kling 4.0": 14000,
 }
 
 
@@ -79,6 +80,10 @@ class ValidatePromptTests(unittest.TestCase):
             "미니맥스 H3": ("MiniMax H3", 6500),
             "KLING 3": ("Kling 3.0", 8000),
             "클링-3.0": ("Kling 3.0", 8000),
+            "Kling 4.0": ("Kling 4.0", 14000),
+            "KLING 4": ("Kling 4.0", 14000),
+            "클링-4.0": ("Kling 4.0", 14000),
+            "클링 4": ("Kling 4.0", 14000),
         }
         for alias, expected in aliases.items():
             with self.subTest(alias=alias):
@@ -86,7 +91,7 @@ class ValidatePromptTests(unittest.TestCase):
                 self.assertEqual((policy.model, policy.max_chars), expected)
 
     def test_does_not_partially_match_unsupported_versions(self):
-        for model in ("Seedance 2.50", "Kling 3.1", "MiniMax H30"):
+        for model in ("Seedance 2.50", "Kling 3.1", "Kling 4.1", "Kling 4.01", "MiniMax H30"):
             with self.subTest(model=model):
                 policy = self.validator.resolve_model_policy(model)
                 self.assertEqual(policy.model, "Seedance 2.0")
@@ -124,6 +129,27 @@ class ValidatePromptTests(unittest.TestCase):
         )
         self.assertEqual(mixed_policy.model, "Seedance 2.0")
         self.assertEqual(mixed_policy.max_chars, 3800)
+
+        kling_policy = self.validator.resolve_model_policy("Kling 4.0 / Kling 3.0")
+        self.assertEqual(kling_policy.model, "Kling 3.0")
+        self.assertEqual(kling_policy.max_chars, 8000)
+
+        shared_14000 = self.validator.resolve_model_policy("Kling 4.0 / Seedance 2.5")
+        self.assertEqual(shared_14000.max_chars, 14000)
+
+    def test_kling_40_cli_uses_14000_character_limit(self):
+        for length, expected_exit in ((14000, 0), (14001, 1)):
+            with self.subTest(length=length):
+                prompt = DIRECTIVE + ("x" * (length - len(DIRECTIVE)))
+                result = subprocess.run(
+                    [sys.executable, str(MODULE_PATH), "--model", "Kling 4.0"],
+                    input=prompt.encode("utf-8"),
+                    capture_output=True,
+                    check=False,
+                )
+                self.assertEqual(result.returncode, expected_exit, result.stderr)
+                self.assertIn(b"model=kling-4.0", result.stdout)
+                self.assertIn(b"max_chars=14000", result.stdout)
 
     def test_rejects_3801_ascii_characters(self):
         prompt = DIRECTIVE + ("x" * (3801 - len(DIRECTIVE)))

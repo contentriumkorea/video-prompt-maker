@@ -39,7 +39,7 @@ python "/absolute/path/video-prompt-maker/scripts/validate_prompt.py" --model "K
 
 Use Python 3.10 or later; no extra packages are needed. The same quoted-path command works in a shell or PowerShell; select the available Python launcher. For a web-only host without code execution, follow the unverified-draft procedure in `SKILL.md`; self-review is not an executed validator pass.
 
-Use `Seedance 2.0` (3,800), `Seedance 2.5` (14,000), `MiniMax H3` (6,500), or `Kling 3.0` (8,000). Omit `--model` only when no target model is named; an omitted or unlisted model uses Seedance 2.0. Repeat `--model` for one shared prompt targeting multiple models; the validator applies the smallest applicable limit. Validate separate variants with their own model argument.
+Use `Seedance 2.0` (3,800), `Seedance 2.5` (14,000), `MiniMax H3` (6,500), `Kling 3.0` (8,000), or `Kling 4.0` (14,000). Omit `--model` only when no target model is named; an omitted or unlisted model uses Seedance 2.0. Repeat `--model` for one shared prompt targeting multiple models; the validator applies the smallest applicable limit. Validate separate variants with their own model argument.
 
 Exit status `0` and output `ok=true ... violations=none model=<resolved-model> max_chars=<limit>` mean the deterministic contract passes. Exit status `1` identifies one or more prompt violations: `empty`, `unicode-length`, `utf16-length`, `sound-directive-count`, `music-language`, or `code-fence`. Exit status `2` means the input could not be read or decoded. Revise the prompt body and rerun until status `0`.
 

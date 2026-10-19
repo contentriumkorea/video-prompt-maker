@@ -14,18 +14,21 @@ MODEL_LIMITS = {
     "Seedance 2.5": 14000,
     "MiniMax H3": 6500,
     "Kling 3.0": 8000,
+    "Kling 4.0": 14000,
 }
 MODEL_SLUGS = {
     "Seedance 2.0": "seedance-2.0",
     "Seedance 2.5": "seedance-2.5",
     "MiniMax H3": "minimax-h3",
     "Kling 3.0": "kling-3.0",
+    "Kling 4.0": "kling-4.0",
 }
 MODEL_ALIASES = {
     "Seedance 2.0": ("Seedance 2.0", "시댄스 2.0"),
     "Seedance 2.5": ("Seedance 2.5", "시댄스 2.5"),
     "MiniMax H3": ("MiniMax H3", "미니맥스 H3"),
     "Kling 3.0": ("Kling 3.0", "Kling 3", "클링 3.0", "클링 3"),
+    "Kling 4.0": ("Kling 4.0", "Kling 4", "클링 4.0", "클링 4"),
 }
 # Backward-compatible alias for callers that imported the original default cap.
 MAX_CHARS = MODEL_LIMITS[DEFAULT_MODEL]
