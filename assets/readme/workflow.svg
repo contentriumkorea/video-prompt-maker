@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+<title id="title">아이디어를 영상 프롬프트로</title><desc id="desc">장면 요청을 입력하고 장면·동작·카메라·연속성을 정리한 뒤 복사 가능한 영상 프롬프트를 받는 흐름입니다. 기능 도식이며 실제 앱 화면은 아닙니다.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101c29"/><stop offset="1" stop-color="#1b303b"/></linearGradient></defs>
+<rect width="1120" height="520" rx="24" fill="url(#bg)"/>
+<g font-family="Segoe UI, Malgun Gothic, Noto Sans KR, Arial, sans-serif">
+<text x="40" y="49" fill="#e5be87" font-size="13" letter-spacing="3" font-weight="600">FROM BRIEF TO PROMPT</text>
+<text x="40" y="97" fill="#f6f2ea" font-size="30" font-weight="650">장면의 의도를, 생성에 필요한 내용으로.</text>
+<g fill="#182d3b" stroke="#3c5666"><rect x="40" y="137" width="304" height="306" rx="18"/><rect x="408" y="137" width="304" height="306" rx="18"/><rect x="776" y="137" width="304" height="306" rx="18"/></g>
+<g fill="#99bebf" font-size="12" letter-spacing="2"><text x="64" y="174">01 / YOUR IDEA</text><text x="432" y="174">02 / SCENE DIRECTION</text><text x="800" y="174">03 / READY TO COPY</text></g>
+<g fill="#f8f3e9" font-size="24" font-weight="600"><text x="64" y="213">요청하기</text><text x="432" y="213">구체적으로 정리하기</text><text x="800" y="213">프롬프트로 받기</text></g>
+<g fill="#c6d5d9" font-size="17"><text x="64" y="261">텍스트 · 이미지 · 콘티</text><text x="64" y="294">원하는 길이와 영상 모델</text><text x="64" y="327">지킬 내용과 제외할 요소</text><text x="432" y="261">장면과 관찰 가능한 동작</text><text x="432" y="294">카메라와 구도</text><text x="432" y="327">인물 · 소품 · 공간의 연결</text><text x="800" y="261">기본 영어 프롬프트</text><text x="800" y="294">정확한 한국어 문구 유지</text><text x="800" y="327">복사 가능한 코드 블록</text></g>
+<g font-size="12" fill="#92aeb9"><text x="64" y="410">T2V / I2V / REFERENCES</text><text x="432" y="410">ACTION / CAMERA / CONTINUITY</text><text x="800" y="410">SINGLE SHOT / MULTI-SHOT</text></g>
+<g stroke="#e7bc7d" fill="none" stroke-width="2"><path d="M358 287h35m-8-8 8 8-8 8"/><path d="M726 287h35m-8-8 8 8-8 8"/></g>
+<text x="40" y="482" fill="#809ba7" font-size="13">작업 흐름을 설명하는 기능 도식 · 실제 생성 결과는 사용하는 서비스에 따라 달라집니다.</text>
+</g></svg>
