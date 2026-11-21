@@ -20,6 +20,8 @@ Use natural prose for the scene groups. After camera/composition, write exactly 
 
 ## Input branches
 
+For character performance, distinguish shared scene continuity, shot framing/camera, and cue-linked acting beats while drafting. Compile them into the order above rather than adding a second mandatory schema. One dominant event can contain several small connected reactions; those changes do not require extra shots or camera movements. Use relative dialogue/event cues before exact timestamps, and carry each beat's exit state forward. See `acting-performance.md`.
+
 ### T2V
 
 Describe the subject, visible action, environment, lighting, performance or physics, camera, and style from the request. State only details that can appear on screen or be heard as non-musical sound. Do not invent unsupported reference assets.
@@ -59,3 +61,5 @@ Use exact timestamps only when duration or synchronization is explicitly require
 ## Exact text and duration
 
 Keep supplied Korean dialogue and screen text verbatim inside quotation marks. Format dialogue as `says in Korean: "..."` when the spoken language matters. Change delivery, timing, gesture, or shot allocation without rewriting the words. If subtitles are requested, keep the same exact wording. Fit dialogue to the available duration; when the exact text is too long, request a longer duration, shorter approved wording, or a split instead of silently truncating or accelerating it beyond intelligibility.
+
+Keep delivery and pause instructions outside locked quotations, including their punctuation. When an acting change depends on a particular supplied word or response, anchor it there without inserting words, ellipses, or stutters into the line. A prohibition intended only before that cue must not become a sequence-wide ban on a later requested reaction.

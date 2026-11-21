@@ -9,13 +9,17 @@
 5. **Action:** Keep one dominant observable visual event per shot with a readable cause or transition.
 6. **Camera:** Keep one dominant camera movement or one locked-off instruction per shot; remove competing moves and technical rituals.
 7. **Lighting:** Name a motivated light source or a clear lighting condition and keep its direction consistent unless it visibly changes.
-8. **Acting:** Use duration-appropriate, visible reaction, gaze, breath, posture, hands, distance, and state inertia without stereotypes.
+8. **Acting:** When performance matters, connect the supported objective and cue to a visible, duration-appropriate response and exit state. Check onset/peak/settling where relevant, meaningful pauses, framing visibility, and that a temporary inhibition ends at the right cue. Carry the exit state forward; omit unnecessary acting fields or AU codes.
 9. **Physics:** Retain only relevant mass, contact, inertia, friction, weight transfer, cloth, liquid, debris, or impact cues; respect stylized rules.
 10. **Style:** Consolidate visual treatment into exactly one `Style:` clause after camera/composition.
 11. **Dialogue/text:** Preserve supplied Korean dialogue and screen text exactly in quotation marks, and ensure it can fit the duration.
 12. **Music:** Apply the contextual policy below and keep exact `[Sound] no music` once after the Style clause.
 13. **Constraints:** Keep continuity locks after the Sound line.
 14. **Length:** Resolve the target model and validate the body at or below its limit by both Unicode characters and UTF-16 code units. Use Seedance 2.0 when no model is named or the named model is unlisted.
+
+## Performance review
+
+Acting review is semantic: distinguish one dramatic event from its small connected reactions; keep delivery directions outside exact dialogue; reject invented motivation, unseen facial details, premature or contradictory reactions, and unsupported AU mappings. The validator does not measure acting realism, cue timing, or AU compliance.
 
 ## Music-term policy
 

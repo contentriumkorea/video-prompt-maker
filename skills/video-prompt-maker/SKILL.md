@@ -48,6 +48,7 @@ In an instructions-only web environment, the complete web export supplies the sa
 2. Isolate the current request and map each reference to one responsibility.
 3. Establish first-frame occupancy, geography, facing, gaze, contact, and continuity state only when relevant.
 4. Write observable action/performance, one dominant camera movement per shot, motivated light, and relevant physical cause/effect.
+   For meaningful character performance, connect the immediate objective, dialogue/event cue, visible response, and exit state; use the acting reference for timing and scoped inhibition.
 5. Compile in the single semantic order: subject/motion; environment/spatial state/light; performance/physics; camera/composition; one consolidated visual style clause; dialogue/non-musical sound; constraints/continuity.
 6. Use numbered `Shot N` blocks for multi-shot by default; exact timestamps only when required.
 7. Resolve the target model, perform the semantic music review in `references/quality-check.md`, then compress and validate each prompt body with `scripts/validate_prompt.py --model "<target model>"`; omit `--model` only when the request names no model. Revise until exit status 0.
@@ -55,7 +56,7 @@ In an instructions-only web environment, the complete web export supplies the sa
 ## Reference routing
 
 - Read `references/prompt-architecture.md` for all builds.
-- Read `references/acting-performance.md` for visible characters or dialogue.
+- Read `references/acting-performance.md` for visible characters or dialogue, including cue-linked performance changes, pauses, and optional facial precision.
 - Read `references/visual-continuity.md` for uploaded assets, I2V, or recurring characters/locations/props.
 - Read `references/spatial-physics.md` for multi-character blocking, continuity, interaction, impact, liquids, cloth, or debris.
 - Read `references/quality-check.md` before final delivery and for repair/compression.
